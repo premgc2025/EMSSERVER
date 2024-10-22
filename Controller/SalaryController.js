@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 import salaryModel from "../Model/SalaryModel.js"
 import employeeModel from "../Model/EmployeeModel.js";
 
