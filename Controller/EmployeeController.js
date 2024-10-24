@@ -3,8 +3,6 @@ import bcrypt from 'bcrypt'
 import registerModel from '../Model/RegisterModel.js'
 import multer from 'multer'
 import employeeModel from '../Model/EmployeeModel.js'
-import UploadImage from '../Firebase.js'
-import axios from 'axios'
 import FormData from 'form-data'
 import { v2 as cloudinary } from 'cloudinary';
 import path from 'path'
