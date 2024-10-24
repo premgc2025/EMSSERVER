@@ -1,23 +1,24 @@
 import express from 'express'
-import cors from 'cors'
+import cors from  'cors'
 import mongoose from 'mongoose'
 
 
 
 
 const app = express()
-const corsOptions = {
-    origin: '*', // Replace with your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
-  };
+app.use(cors())
+// const corsOptions = {
+//     origin: '*', // Replace with your frontend URL
+//     methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
+//   };
   
-  app.use(cors(corsOptions));
+//   app.use(cors(corsOptions));
 
 app.use(express.json())
 // app.use(express.static('/tmp'))
 
 
-// Imporing Model and Function
+// Imporing Model Function
 
 import router from './Router/RegisterRouter.js'
 import deptRouter from './Router/DepartmentRouter.js'
