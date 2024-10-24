@@ -4,12 +4,33 @@ import registerModel from '../Model/RegisterModel.js'
 import multer from 'multer'
 import employeeModel from '../Model/EmployeeModel.js'
 import UploadImage from '../Firebase.js'
+import axios from 'axios'
+import FormData from 'form-data'
+import { v2 as cloudinary } from 'cloudinary';
+import path from 'path'
 
 
 
+ // Configuration
+ cloudinary.config({ 
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret:process.env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
+});
 
-// Initialize multer to store files in memory
-const upload = multer({ storage: multer.memoryStorage() });
+
+// Set up storage configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'tmp/'); // specify the folder to save the uploaded files
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // use a timestamp for unique filenames
+    },
+  });
+  
+  // Initialize multer with the storage configuration
+  const upload = multer({ storage: storage });
 
 // Middleware to handle file upload
 export const uploadImageMiddleware = upload.single('file');
@@ -18,13 +39,17 @@ export const uploadImageMiddleware = upload.single('file');
 
 const AddEmployeeController = async (req,res)=>{
   
-   
-    try{
-        if (!req.body.name || !req.file) {
-            return res.status(400).json({ error: 'Name and image are required' });
-        }
-        const imageUrl = await UploadImage(req.file.buffer, req.file.originalname); // Use the buffer for the upload
-      
+    if (!req.body.name || !req.file) {
+        return res.status(400).json({ error: 'Name and image are required' });
+    }
+  
+
+    try{       
+       
+            // Upload an image
+             const url = await cloudinary.uploader.upload(req.file.path)
+        
+             const imageUrl = url.secure_url  
    
     const {
         name,
