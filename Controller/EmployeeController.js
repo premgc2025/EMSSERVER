@@ -6,7 +6,6 @@ import employeeModel from '../Model/EmployeeModel.js'
 import FormData from 'form-data'
 import { v2 as cloudinary } from 'cloudinary';
 import path from 'path'
-
 import {CloudinaryStorage} from 'multer-storage-cloudinary'
 
 
@@ -19,18 +18,6 @@ import {CloudinaryStorage} from 'multer-storage-cloudinary'
 });
 
 
-// Set up storage configuration
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-    //   cb(null, 'tmp/'); // specify the folder to save the uploaded files
-    // },
-    // filename: (req, file, cb) => {
-    //   cb(null, Date.now() + path.extname(file.originalname)); // use a timestamp for unique filenames
-    // },
-//   });
-  
-  // Initialize multer with the storage configuration
-//   const upload = multer({ storage: storage });
 
 
   // Set up multer storage using Cloudinary
@@ -44,8 +31,7 @@ const storage = new CloudinaryStorage({
   
   // Create multer instance with Cloudinary storage
   const upload = multer({ storage: storage });
-  
-//   const handler = nextConnect();
+
 
 // Middleware to handle file upload
 export const uploadImageMiddleware = upload.single('file');
@@ -62,10 +48,6 @@ const AddEmployeeController = async (req,res)=>{
 
     try{       
        
-            // Upload an image
-            //  const url = await cloudinary.uploader.upload(req.file.path)
-        
-            //  const imageUrl = url.secure_url  
              const imageUrl = req.file.path 
    
     const {
