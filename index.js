@@ -6,13 +6,13 @@ import mongoose from 'mongoose'
 
 
 const app = express()
-app.use(cors())
-// const corsOptions = {
-//     origin: '*', // Replace with your frontend URL
-//     methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
-//   };
+
+const corsOptions = {
+    origin: '*', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
+  };
   
-//   app.use(cors(corsOptions));
+  app.use(cors(corsOptions));
 
 app.use(express.json())
 // app.use(express.static('/tmp'))
